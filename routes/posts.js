@@ -21,9 +21,13 @@ router.get('/:id', async (req, res) => {
   const postId = req.params.id;
   try {
     const post = await postsModel.getPostById(postId);
-    successRes(res,post)
+    if(!post){  
+      notFoundRes(res)
+    }else{
+      successRes(res,post)
+    }
   } catch (error) {
-    notFoundRes(res)
+    serverErrorRes(res)
   }
 });
 

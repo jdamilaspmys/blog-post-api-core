@@ -9,7 +9,7 @@ function successRes(res, data = null, statusCode = 200) {
   }
   
   function clientErrorRes(res, message = 'Bad Request', statusCode = 400) {
-    return res.status(statusCode).json({ message });
+    return res.status(statusCode).json(message);
   }
   
   function notFoundRes(res, message = 'Not Found') {
@@ -25,7 +25,7 @@ function successRes(res, data = null, statusCode = 200) {
   }
   
   function serverErrorRes(res, message = 'Internal Server Error') {
-    return res.status(500).json({ message });
+    return res.status(500).json(message);
   }
   
   module.exports = {
