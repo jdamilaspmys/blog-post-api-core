@@ -3,10 +3,12 @@ const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
 
 const postSchema = new mongoose.Schema({
-  _id: { type: String, default: uuidv4 },
   title: { type: String, required: true },
   content: { type: String, required: true },
-  author: { type: String, required: true },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
   createdBy: { type: String, required: true },
   updatedBy: { type: String, required: true },
   isDelete: { type: Boolean, default: false },
@@ -20,11 +22,11 @@ const Post = mongoose.model('Post', postSchema);
 module.exports = {
     getAllPosts: async (page = 1, size = 5) => {
       const skip = (page - 1) * size;
-      return Post.find({ isDelete: false }).skip(skip).limit(size)
+      return Post.find({ isDelete: false }).skip(skip).limit(size).populate({ path: 'author', select: '_id name' })
     },
 
     getPostById: async (postId) => {
-      return Post.findOne({ _id: postId, isDelete: false });
+      return Post.findOne({ _id: postId, isDelete: false }).populate({ path: 'author', select: '_id name' })
     },
 
     createPost: async ({ title, content, author }) => {

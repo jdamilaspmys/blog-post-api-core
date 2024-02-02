@@ -8,7 +8,6 @@ require('dotenv').config();
 
 const userSchema = new mongoose.Schema(
   {
-    _id: { type: String, default: uuidv4 },
     email: { type: String, required: true, unique: true, validate: { validator: isEmailValid, message: 'Invalid email format' } },
     password: { type: String, required: true },
     name: { type: String, required: true },

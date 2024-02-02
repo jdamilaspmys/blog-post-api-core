@@ -19,7 +19,7 @@ router.post('/sign-up', async (req, res) => {
   
     const user = await usersModel.createUser({ email, password, name });
     const token = await usersModel.generateAuthToken(user)
-    return successRes(res, { token, email, name }, 201);
+    return successRes(res, { token, email, name, _id: user._id }, 201);
   } catch (error) {
     return serverErrorRes(res);
   }
@@ -35,7 +35,7 @@ router.post('/sign-in', async (req, res) => {
       return clientErrorRes(res, 'Invalid email or password', 401);
     }
     const token = await usersModel.generateAuthToken(user)
-    return successRes(res, { token, email, name: user.name });
+    return successRes(res, { token, email, name: user.name, _id: user._id });
   } catch (error) {
     return serverErrorRes(res);
   }
