@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const db = connect();
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/posts', postRouter)
 
 // catch 404 and forward to error handler
