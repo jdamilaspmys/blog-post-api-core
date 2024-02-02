@@ -27,13 +27,13 @@ module.exports = {
       return Post.findOne({ _id: postId, isDelete: false });
     },
 
-    createPost: async ({ title, content, author, createdBy, updatedBy }) => {
+    createPost: async ({ title, content, author }) => {
       const newPost = new Post({
         title,
         content,
         author,
-        createdBy,
-        updatedBy,
+        createdBy : author,
+        updatedBy : author,
       });
 
       await newPost.save();
@@ -41,7 +41,7 @@ module.exports = {
       return newPost;
     },
 
-    updatePost: async (postId, { title, content, author, updatedBy }) => {
+    updatePost: async (postId, { title, content }) => {
       const post = await Post.findOne({ _id: postId, isDelete: false });
 
       if (!post) {
@@ -50,14 +50,12 @@ module.exports = {
 
       post.title = title || post.title;
       post.content = content || post.content;
-      post.author = author || post.author;
-      post.updatedBy = updatedBy || post.updatedBy;
 
       await post.save();
       return post;
     },
 
-    deletePost: async (postId, updatedBy) => {
+    deletePost: async (postId, userId) => {
       const post = await Post.findOne({ _id: postId, isDelete: false });
 
       if (!post) {
@@ -65,7 +63,7 @@ module.exports = {
       }
 
       post.isDelete = true;
-      post.updatedBy = updatedBy || post.updatedBy;
+      post.updatedBy = userId;
 
       await post.save();
       return { message: 'Post marked as deleted successfully' };
