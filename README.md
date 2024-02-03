@@ -39,6 +39,10 @@ npm start
 ```
 The API server will run on http://localhost:3000 (or the port you specified in the .env file).
 
+Swagger Doc: 
+
+http://localhost:3000/api-docs
+
 Scripts
 
 - npm start: Start the server using the ./bin/www script.
@@ -54,6 +58,7 @@ The following is a list of dependencies used in this project:
 3. **jsonwebtoken** : JSON Web Token authentication.
 4. **mongoose** : MongoDB object modeling for Node.js.
 5. **uuid** : Generate unique identifiers.
+6. **swagger-ui-express** : Generate Swagger Document.
 
 
 Support : jdamilaspmys@gmail.com
