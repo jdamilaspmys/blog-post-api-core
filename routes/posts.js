@@ -60,7 +60,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
     const post = await postsModel.getPostById(postId);
     if(!post){
       notFoundRes(res)
-    }else if(post && post.author !== userId){
+    }else if(post && post.author._id.toString() !== userId){
       unauthorizedRes(res)
     }else {
       const updatedPost = await postsModel.updatePost(postId, {
@@ -84,7 +84,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     const post = await postsModel.getPostById(postId);
     if(!post){
       notFoundRes(res)
-    }else if(post && post.author !== userId){
+    }else if(post && post.author._id.toString() !== userId){
       unauthorizedRes(res)
     }else {
       await postsModel.deletePost(postId, userId);
