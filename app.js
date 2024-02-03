@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
+const swaggerUi = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -30,6 +32,49 @@ const db = connect();
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/posts', postRouter)
+
+// Swagger JSDoc configuration
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Blog Post NodeJs App',
+      version: '1.0.0',
+      description: 'API documentation for Blog Post Node.js app',
+    },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'apiKey',
+          name: 'Authorization',
+          in: 'header',
+        },
+      },
+    },
+    tags: [
+      {
+        name: 'Users',
+        description: 'API endpoints for managing users',
+      },
+      {
+        name: 'Posts',
+        description: 'API endpoints for managing posts'
+      }
+    ],
+    servers: [
+      {
+        url: `http://localhost:3000/api/v1`,
+        description: 'Local development server',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'], // Path to the API routes files
+};
+
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+// Serve Swagger UI
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
