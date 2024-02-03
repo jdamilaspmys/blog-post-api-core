@@ -42,6 +42,25 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'API documentation for Blog Post Node.js app',
     },
+    components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'apiKey',
+          name: 'Authorization',
+          in: 'header',
+        },
+      },
+    },
+    tags: [
+      {
+        name: 'Users',
+        description: 'API endpoints for managing users',
+      },
+      {
+        name: 'Posts',
+        description: 'API endpoints for managing posts'
+      }
+    ],
     servers: [
       {
         url: `http://localhost:3000/api/v1`,

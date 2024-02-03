@@ -12,6 +12,8 @@ const router = express.Router();
  * @swagger
  * /users/sign-up:
  *   post:
+ *     tags:
+ *       - Users
  *     summary: Register a new user
  *     description: Register a new user with email, password, and name.
  *     requestBody:
@@ -73,6 +75,8 @@ router.post('/sign-up', async (req, res) => {
  * @swagger
  * /users/sign-in:
  *   post:
+ *     tags:
+ *       - Users
  *     summary: Sign in with existing user credentials
  *     description: Sign in with an existing user account using email and password.
  *     requestBody:
